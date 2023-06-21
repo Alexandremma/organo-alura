@@ -1,25 +1,62 @@
+import { useState } from 'react';
 import ListaSuspensa from '../ListaSuspensa/ListaSuspensa';
-import CampoTexto from './../CampoTexto/CampoTexto';
+import CampoTexto from '../CampoTexto/CampoTexto';
+import Botao from '../Botao/Botao';
+
 import './Formulario.css';
 
-const Formulario = () => {
+const Formulario = (props) => {
 
-    const times = [
-        'Programação',
-        'Inovação e Gestão',
-        'Mobile',
-        'Front-End',
-        'Back-End',
-        'UX & UI'
-    ];
+    const [nome, setNome] = useState('');
+    const [cargo, setCargo] = useState('');
+    const [imagem, setImagem] = useState('');
+    const [time, setTime] = useState('');
+
+    const times = props.times;
+
+    const aoSalvar = (evento) => {
+        evento.preventDefault();
+
+        props.aoColaboradorCadastrado({
+            nome: nome,
+            cargo: cargo,
+            imagem: imagem,
+            time: time,
+        });
+    }
 
     return (
         <section className='formulario'>
-            <form>
-                <CampoTexto label="Nome" placeholder="Digite seu Nome" />
-                <CampoTexto label="Cargo" placeholder="Digite seu Cargo" />
-                <CampoTexto label="Imagem" placeholder="Digite o endereço da Imagem" />
-                <ListaSuspensa itens={times} />
+            <form onSubmit={aoSalvar}>
+                <CampoTexto
+                    obrigatorio={true}
+                    label="Nome"
+                    placeholder="Digite seu Nome"
+                    valor={nome}
+                    aoAlterado={(elemento) => setNome(elemento)}
+                />
+                <CampoTexto
+                    obrigatorio={true}
+                    label="Cargo"
+                    placeholder="Digite seu Cargo"
+                    valor={cargo}
+                    aoAlterado={(elemento) => setCargo(elemento)}
+                />
+                <CampoTexto
+                    label="Imagem"
+                    placeholder="Digite o endereço da Imagem"
+                    valor={imagem}
+                    aoAlterado={(elemento) => setImagem(elemento)}
+                />
+                <ListaSuspensa
+                    obrigatorio={true}
+                    label="Time"
+                    itens={times}
+                    aoAlterado={(element) => setTime(element)}
+                />
+                <Botao>
+                    Criar Card
+                </Botao>
             </form>
         </section>
     );

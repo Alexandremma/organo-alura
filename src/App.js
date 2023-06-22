@@ -9,7 +9,6 @@ function App() {
 
   const cadastrarColaborador = (colaborador) => {
     setColaboradores([...colaboradores, colaborador]);
-    console.log(colaborador, colaboradores);
   }
 
   const times = [
@@ -56,7 +55,13 @@ function App() {
       <Formulario times={times.map((time) => time.nome)} aoColaboradorCadastrado={(colaborador) => { cadastrarColaborador(colaborador) }} />
       {times.map((time) => {
         return (
-          <Time titulo={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria} key={time.nome} />
+          <Time
+            titulo={time.nome}
+            corPrimaria={time.corPrimaria}
+            corSecundaria={time.corSecundaria}
+            colaboradores={colaboradores.filter((colaborador) => colaborador.time === time.nome)}
+            key={time.nome}
+          />
         )
       })}
     </div>

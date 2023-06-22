@@ -1,14 +1,23 @@
 import './Colaborador.css';
 
-const Colaborador = (props) => {
+const Colaborador = ({ nome, cargo, imagem, corPrimaria }) => {
+
+    const cabecalhoCss = {
+        backgroundColor: corPrimaria,
+    }
+
+    const nomeCss = {
+        color: corPrimaria,
+    }
+
     return (
         <div className='colaborador'>
-            <div className='imagem-colaborador-container'>
-                <img className='imagem-colaborador' src='https://github.com/Alexandremma.png' alt='Alexandre M Maciel' />
+            <div className='cabecalho' style={cabecalhoCss}>
+                <img src={imagem} alt={nome} />
             </div>
-            <div className='info-colaborador-container'>
-                <h4 className='nome-colaborador'>Alexandre M Maciel</h4>
-                <h5 className='cargo-colaborador'>Desenvolvedor Front End</h5>
+            <div className='rodape'>
+                <h4 style={nomeCss}>{nome}</h4>
+                <h5>{cargo}</h5>
             </div>
         </div>
     )
